@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<!--  FONTS  -->
+	<link href="https://fonts.googleapis.com" rel="preconnect">
+	<link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+	<!--  CSS  -->
+	<link href="./stylesheets/style.css" rel="stylesheet">
+	<link href="./favicon/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
+	<link href="./favicon/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+	<link href="./favicon/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+	<link href="./favicon/site.webmanifest" rel="manifest">
+	<title>ToDo List</title>
+</head>
+<body>
+<div class="container">
+	<h1 class="title">Список задач</h1>
+	<div class="todo-main">
+		<form class="add-form">
+			<label title="Поле ввода задачи" class="input-field-label">
+				<input title="Поле ввода задачи" class="input-field" type="text" value="">
+			</label>
+
+			<label title="Нажмите для добавления">
+				<button type="submit" title="Нажмите для добавления" class="btn-add">Добавить</button>
+			</label>
+		</form>
+
+		<div class="todo-block">
+		</div>
+
+		<div class="del-buttons-block">
+			<button id="del-selected-btn"  title="Нажмите для удаления выбранных задач"  class="del-selected-btn">Удалить завершенные</button>
+			<button id="del-all-btn"  title="Нажмите для удаления всех задач"  class="del-all-btn">Удалить все</button>
+		</div>
+
+	</div>
+</div>
+<script type="module" src="./js/index.js"></script>
+</body>
+</html>

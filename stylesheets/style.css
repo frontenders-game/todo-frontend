@@ -1,0 +1,152 @@
+/* Reset browser style */
+*, *:before, *:after {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+body {
+    color: #54595e;
+    background-color: #f5f5f5;
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-size: 16px;
+    font-weight: 400;
+    padding-top: 80px;
+}
+
+
+button {
+    padding: 10px 16px;
+    color: #ffffff;
+    background-color: #000000;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.container {
+    max-width: 594px;
+    margin: 0 auto;
+}
+
+.title {
+    font-weight: 700;
+    font-size: 58px;
+    margin: 0 auto 32px;
+    text-align: center;
+}
+
+.todo-main {
+    background: #ffffff;
+    box-shadow: 0 8px 35px rgba(0, 0, 0, 0.16);
+    border-radius: 16px;
+}
+
+.input-field-label {
+    flex-grow: 1;
+}
+
+.add-form {
+    padding: 24px;
+    font-weight: 600;
+    display: flex;
+    gap: 24px;
+    justify-content: space-between;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.input-field, .todo-edit-input {
+    width: 100%;
+    color: #54595e;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 9px 14px;
+    box-sizing: border-box;
+}
+
+.todo-edit-input {
+    flex-grow: 1;
+    padding: 12px;
+}
+
+.input-field:focus,
+.todo-edit-input:focus {
+    outline: none;
+    border: 1px solid #ced4da;
+}
+
+.input-field::placeholder,
+.todo-edit-text::placeholder {
+    color: #54595e;
+    opacity: 0.5;
+}
+
+.todo-block {
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.todo {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+}
+
+.todo-checkbox {
+    accent-color: #7749f8;
+    border: 1px solid #abb5be;
+    border-radius: 2px;
+}
+
+.todo-text {
+    flex-grow: 1;
+    margin-bottom: 12px;
+    margin-top: 12px;
+}
+
+.todo-checkbox:checked + .todo-text {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.todo-edit-text {
+
+}
+
+.edit-todo, .del-todo {
+    justify-self: end;
+    cursor: pointer;
+}
+
+
+.del-buttons-block {
+    background-color: #f5f5f5;
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-add {
+    width: 166px;
+}
+
+.del-selected-btn {
+    background: #6c757d;
+}
+
+.del-selected-btn:disabled {
+    opacity: 0.5;
+}
+
+.del-all-btn {
+    background: #dc3545;
+}
+
+.hidden {
+    display: none;
+}
