@@ -114,9 +114,6 @@ button {
     opacity: 0.5;
 }
 
-.todo-edit-text {
-
-}
 
 .edit-todo, .del-todo {
     justify-self: end;
