@@ -1,14 +1,15 @@
 import genRandomId from './misc.js'
 const TODO_LS_KEY = 'todo'
 
-//
-// {
-//     "id": "2",
-//     "text": "go to shop",
-//     "isDone": "true",
-//     "createdAt": "2023-02-13T10:35:01.590Z",
-//     "updatedAt": "2023-02-13T10:35:01.590Z",
-// }
+/*
+{
+    "id": "63ea1255c82a8fb6426fc960",
+    "text": "go to shop",
+    "isDone": "true",
+    "createdAt": "2023-02-13T10:35:01.590Z",
+    "updatedAt": "2023-02-13T10:35:01.590Z",
+}
+*/
 const saveTodos = function(todoArr) {
     localStorage.setItem(TODO_LS_KEY, JSON.stringify(todoArr));
     return localStorage.getItem(TODO_LS_KEY)
