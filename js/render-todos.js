@@ -108,13 +108,13 @@ const renderAllTodos = function() {
     todoBlock.innerHTML = ''
     const todos = readTodos()
     if (todos.length === 0) {
-        todoBlock.classList.add('hidden')
-        delButtonsBlock.classList.add('hidden')
+        todoBlock.classList.remove('visible')
+        delButtonsBlock.classList.remove('visible')
         return
     }
     todos.forEach(t => todoBlock.append(renderTodo(t)))
-    todoBlock.classList.remove('hidden')
-    delButtonsBlock.classList.remove('hidden')
+    todoBlock.classList.add('visible')
+    delButtonsBlock.classList.add('visible')
     delSelectedBtn.disabled = todos.every(t => !t.isDone)
 
 }
