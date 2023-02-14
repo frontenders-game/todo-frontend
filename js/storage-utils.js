@@ -1,4 +1,4 @@
-import genRandomId from './misc.js'
+import {genRandomId, dateNow} from './misc.js'
 
 const TODO_LS_KEY = 'todo'
 
@@ -71,8 +71,6 @@ const getTodoIndexById = function (id) {
     }
     return null
 }
-
-const dateNow = () => new Date().toISOString()
 
 
 export {

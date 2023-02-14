@@ -4,4 +4,9 @@ const genRandomId = function () {
         () => (Math.random() * 16 | 0).toString(16)).toLowerCase();
 };
 
-export default genRandomId
+const dateNow = () => new Date().toISOString()
+
+export {
+    genRandomId,
+    dateNow
+}
