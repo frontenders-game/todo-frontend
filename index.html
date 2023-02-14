@@ -20,12 +20,11 @@
 	<h1 class="title">Список задач</h1>
 	<div class="todo-main">
 		<form class="add-form">
-			<label title="Поле ввода задачи" class="input-field-label">
-				<input title="Поле ввода задачи" class="input-field" type="text" value="">
+			<label class="input-field-label" title="Поле ввода задачи">
+				<input class="input-field" title="Поле ввода задачи" type="text" value="" autofocus>
 			</label>
-
-			<label title="Нажмите для добавления">
-				<button type="submit" title="Нажмите для добавления" class="btn-add">Добавить</button>
+			<label title="Нажмите для добавления задачи">
+				<button class="btn-add" title="Нажмите для добавления задачи" type="submit">Добавить</button>
 			</label>
 		</form>
 
@@ -33,12 +32,14 @@
 		</div>
 
 		<div class="del-buttons-block">
-			<button id="del-selected-btn"  title="Нажмите для удаления выбранных задач"  class="del-selected-btn">Удалить завершенные</button>
-			<button id="del-all-btn"  title="Нажмите для удаления всех задач"  class="del-all-btn">Удалить все</button>
+			<button class="del-selected-btn" title="Нажмите для удаления выбранных задач">Удалить
+				завершенные
+			</button>
+			<button class="del-all-btn" title="Нажмите для удаления всех задач">Удалить все</button>
 		</div>
 
 	</div>
 </div>
-<script type="module" src="./js/index.js"></script>
+<script src="./js/index.js" type="module"></script>
 </body>
 </html>

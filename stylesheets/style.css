@@ -14,8 +14,8 @@ body {
     font-size: 16px;
     font-weight: 400;
     padding-top: 80px;
+    min-width: 320px;
 }
-
 
 button {
     padding: 10px 16px;
@@ -27,8 +27,9 @@ button {
 }
 
 .container {
-    max-width: 594px;
+    max-width: 614px;
     margin: 0 auto;
+    padding: 0 10px;
 }
 
 .title {
@@ -64,7 +65,6 @@ button {
     border: 1px solid #ced4da;
     border-radius: 4px;
     padding: 9px 14px;
-    box-sizing: border-box;
 }
 
 .todo-edit-input {
@@ -88,6 +88,8 @@ button {
     padding: 32px 24px;
     display: none;
     flex-direction: column;
+    max-height: calc(100vh - 400px);
+    overflow-y: scroll;
 }
 
 .todo {
@@ -107,6 +109,7 @@ button {
     flex-grow: 1;
     margin-bottom: 12px;
     margin-top: 12px;
+    overflow-x: hidden;
 }
 
 .todo-checkbox:checked + .todo-text {
@@ -114,12 +117,10 @@ button {
     opacity: 0.5;
 }
 
-
-.edit-todo, .del-todo {
+.edit-todo-icon, .del-todo-icon {
     justify-self: end;
     cursor: pointer;
 }
-
 
 .del-buttons-block {
     background-color: #f5f5f5;
@@ -146,4 +147,46 @@ button {
 
 .visible {
     display: flex;
+}
+
+
+@media (max-width: 600px) {
+    body {
+        padding-top: 10px;
+    }
+
+    .title {
+        font-weight: 700;
+        font-size: 28px;
+        margin: 0 auto 12px;
+    }
+
+    .add-form {
+        flex-direction: column;
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .btn-add {
+        width: 100%;
+    }
+
+    .todo-main {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .todo-block {
+        padding: 12px 24px;
+        max-height: calc(100vh - 235px);
+        overflow-y: scroll;
+    }
+    .del-buttons-block {
+        padding: 12px;
+    }
+}
+@media (max-width: 340px) {
+    .container {
+        padding: 0;
+    }
 }

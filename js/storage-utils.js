@@ -1,4 +1,5 @@
 import genRandomId from './misc.js'
+
 const TODO_LS_KEY = 'todo'
 
 /*
@@ -10,18 +11,18 @@ const TODO_LS_KEY = 'todo'
     "updatedAt": "2023-02-13T10:35:01.590Z",
 }
 */
-const saveTodos = function(todoArr) {
+const saveTodos = function (todoArr) {
     localStorage.setItem(TODO_LS_KEY, JSON.stringify(todoArr));
-    return localStorage.getItem(TODO_LS_KEY)
+    return todoArr
 }
 
 const clearTodos = () => saveTodos([])
 
 const readTodos = () => JSON.parse(localStorage.getItem(TODO_LS_KEY) ?? saveTodos([]))
 
-const addTodo = function(text) {
+const addTodo = function (text) {
     const todos = readTodos()
-    const timeNow = _dateNow()
+    const timeNow = dateNow()
     const todo = {
         id: genRandomId(),
         text: text,
@@ -30,41 +31,40 @@ const addTodo = function(text) {
         updatedAt: timeNow
     }
     todos.push(todo)
-    return saveTodos(todos)
+    saveTodos(todos)
 }
 
-const _editTodoById = function(id, NewIsDone=null, newText=null) {
+const editTodoById = function (id, isDone = null, text = null) {
     const todos = readTodos()
-    const idx = _getTodoIdxById(id)
+    const idx = getTodoIndexById(id)
     const todo = todos[idx]
-    if (newText) todo.text = newText
-    if (NewIsDone !== null) todo.isDone = NewIsDone
-    todo.updatedAt = _dateNow()
-    return saveTodos(todos)
+    if (text) todo.text = text
+    if (isDone !== null) todo.isDone = isDone
+    todo.updatedAt = dateNow()
+    saveTodos(todos)
 }
 
-const checkDoneById = (id) => _editTodoById(id, true)
+const setDoneById = (id) => editTodoById(id, true)
 
-const checkUndoneById = (id) => _editTodoById(id, false)
+const setNotDoneById = (id) => editTodoById(id, false)
 
-const editTodoTextById = (id, text) => _editTodoById(id, null, text)
+const editTodoTextById = (id, text) => editTodoById(id, null, text)
 
 
-
-const delTodoById = function(id) {
+const delTodoById = function (id) {
     const todos = readTodos()
-    const todoIdx = _getTodoIdxById(id)
+    const todoIdx = getTodoIndexById(id)
     todos.splice(todoIdx, 1)
-    return saveTodos(todos)
+    saveTodos(todos)
 }
 
-const delSelected = function() {
+const delSelected = function () {
     const todos = readTodos()
     const newTodos = todos.filter(t => !t.isDone)
-    return saveTodos(newTodos)
+    saveTodos(newTodos)
 }
 
-const _getTodoIdxById = function(id) {
+const getTodoIndexById = function (id) {
     const todos = readTodos()
     for (let i = 0; i < todos.length; i++) {
         if (todos[i].id === id) return i
@@ -72,7 +72,7 @@ const _getTodoIdxById = function(id) {
     return null
 }
 
-const _dateNow = () => new Date().toISOString()
+const dateNow = () => new Date().toISOString()
 
 
 export {
@@ -80,8 +80,8 @@ export {
     saveTodos,
     clearTodos,
     addTodo,
-    checkDoneById,
-    checkUndoneById,
+    setDoneById,
+    setNotDoneById,
     editTodoTextById,
     delTodoById,
     delSelected
