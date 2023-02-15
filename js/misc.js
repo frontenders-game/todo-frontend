@@ -6,7 +6,17 @@ const genRandomId = function () {
 
 const dateNow = () => new Date().toISOString()
 
+const dateISOtoLocal = (date) => new Date(date).toLocaleString('ru')
+
+const sortTodosByEditedDate = (todoArr) => {
+    todoArr.sort((todo1, todo2) => new Date(todo2.updatedAt).getTime() - new Date(todo1.updatedAt).getTime())
+    return todoArr
+}
+
+
 export {
     genRandomId,
-    dateNow
+    dateNow,
+    dateISOtoLocal,
+    sortTodosByEditedDate
 }

@@ -1,3 +1,4 @@
+import {dateISOtoLocal, sortTodosByEditedDate} from './misc.js'
 import {
     readTodos,
     setDoneById,
@@ -16,7 +17,7 @@ const todoBlock = document.querySelector('.todo-block')
 const delButtonsBlock = document.querySelector('.del-buttons-block')
 const delSelectedBtn = document.querySelector('.del-selected-btn')
 
-/*
+/**
 {
     "id": "63ea1255c82a8fb6426fc960",
     "text": "go to shop",
@@ -24,9 +25,16 @@ const delSelectedBtn = document.querySelector('.del-selected-btn')
     "createdAt": "2023-02-13T10:35:01.590Z",
     "updatedAt": "2023-02-13T10:35:01.590Z",
 }
-*/
+ */
+
+const generateDateTitle = function (createdAt, updatedAt) {
+    let str = `Добавлено: ${dateISOtoLocal(createdAt)}.`
+    if (createdAt !== updatedAt) str += ` Изменено: ${dateISOtoLocal(updatedAt)}.`
+    return str
+}
+
 const renderTodo = async function (todoObj) {
-    const {text, id, isDone} = todoObj
+    const {text, id, isDone, createdAt, updatedAt} = todoObj
     const data = [
         // [className, textContent, listenerFn]
         ['todo-text', text, null],
@@ -35,6 +43,7 @@ const renderTodo = async function (todoObj) {
     ]
     const p = document.createElement('p')
     p.className = 'todo'
+    p.title = generateDateTitle(createdAt, updatedAt)
     // checkbox
     const checkbox = document.createElement('input')
     checkbox.type = 'checkbox';
@@ -96,7 +105,7 @@ const renderEditInp = async function (id, text) {
 
 const renderAllTodos = async function () {
     todoBlock.innerHTML = ''
-    const todos = await readTodos()
+    const todos = sortTodosByEditedDate(await readTodos())
     // empty todos
     if (todos.length === 0) {
         todoBlock.classList.remove('visible')
@@ -104,7 +113,9 @@ const renderAllTodos = async function () {
         return
     }
     // not empty
-    todos.forEach(async t => todoBlock.append(await renderTodo(t)))
+    for (const t of todos) {
+        todoBlock.append(await renderTodo(t));
+    }
     todoBlock.classList.add('visible')
     delButtonsBlock.classList.add('visible')
     delSelectedBtn.disabled = todos.every(t => !t.isDone)

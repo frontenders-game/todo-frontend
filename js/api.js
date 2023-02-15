@@ -1,11 +1,7 @@
-
-// const API_URL = 'http://127.0.0.1:5000/api/'
-// const API_KEY = '2d5f792d-2ff3-4bd8-9637-1d2967f27c8d'
-
 const API_URL = 'https://281677.simplecloud.ru/api/'
 const API_KEY = 'd79887cf-df04-4457-972e-247a0f81f9d4'
 
-/*
+/**
   {
     _id: '63ec331a7875944d8864642e',
     text: 'Go for a walk',
@@ -17,36 +13,42 @@ const API_KEY = 'd79887cf-df04-4457-972e-247a0f81f9d4'
 */
 
 
-const makeRequest = async function (path, method='GET', text=null, isDone=null) {
-    const headers = {
-        'apiKey': API_KEY,
-        'Content-Type': 'application/json',
-    }
-    const url = `${API_URL}${path}`
+/**
+ * Helper function to make options object
+ */
+const makeOptions = function (method, text, isDone) {
     const options = {
         method: method,
-        headers: headers
+        headers: {
+            'apiKey': API_KEY,
+            'Content-Type': 'application/json',
+        }
     }
-
     if (method !== 'GET') {
         options.body = {}
         if (text) options.body.text = text
         if (isDone !== null) options.body.isDone = isDone
         options.body = JSON.stringify(options.body)
     }
+    return options
+}
 
+const makeRequest = async function (path, method='GET', text=null, isDone=null) {
+    const url = `${API_URL}${path}`
+    const options = makeOptions(method, text, isDone)
     const result = await fetch(url, options)
     return result.json()
 }
 
+
 const processTodo = function (todo) {
     todo.id = todo._id
+    delete todo._id
     return todo
 }
 
 const readTodos = async function () {
     const response = await makeRequest('todo/all')
-    console.log(response.data)
     return response.data.map(todo => processTodo(todo))
 }
 
@@ -88,9 +90,3 @@ export {
     delTodoById,
     delSelected
 }
-
-
-
-
-
-
