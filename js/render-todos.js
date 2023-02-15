@@ -1,4 +1,4 @@
-import {dateISOtoLocal, sortTodosByEditedDate} from './misc.js'
+import {dateISOtoLocal, sortTodosByCreatedDate} from './misc.js'
 import {
     readTodos,
     setDoneById,
@@ -105,7 +105,7 @@ const renderEditInp = async function (id, text) {
 
 const renderAllTodos = async function () {
     todoBlock.innerHTML = ''
-    const todos = sortTodosByEditedDate(await readTodos())
+    const todos = sortTodosByCreatedDate(await readTodos())
     // empty todos
     if (todos.length === 0) {
         todoBlock.classList.remove('visible')
