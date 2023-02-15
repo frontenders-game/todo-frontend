@@ -4,7 +4,7 @@ import {
     setNotDoneById,
     editTodoTextById,
     delTodoById
-} from './storage-utils.js'
+} from './api.js'
 
 const ICONS = {
     edit: '✏️',
@@ -25,7 +25,7 @@ const delSelectedBtn = document.querySelector('.del-selected-btn')
     "updatedAt": "2023-02-13T10:35:01.590Z",
 }
 */
-const renderTodo = function (todoObj) {
+const renderTodo = async function (todoObj) {
     const {text, id, isDone} = todoObj
     const data = [
         // [className, textContent, listenerFn]
@@ -41,9 +41,9 @@ const renderTodo = function (todoObj) {
     checkbox.className = 'todo-checkbox'
     checkbox.checked = isDone
     const checkboxFn = isDone ? setNotDoneById : setDoneById
-    checkbox.addEventListener('change', () => {
-        checkboxFn(id)
-        renderAllTodos()
+    checkbox.addEventListener('change', async() => {
+        await checkboxFn(id)
+        await renderAllTodos()
     })
     p.appendChild(checkbox)
     // text and icons
@@ -51,52 +51,52 @@ const renderTodo = function (todoObj) {
         const el = document.createElement('span')
         el.className = className
         el.textContent = textContent
-        if (listenerFn) listenerFn(el, id)
+        if (listenerFn) await listenerFn(el, id)
         p.appendChild(el)
     }
     return p
 }
 
-const delListener = function (el, id) {
-    el.addEventListener('click', () => {
-        delTodoById(id)
-        renderAllTodos()
+const delListener = async function (el, id) {
+    el.addEventListener('click', async () => {
+        await delTodoById(id)
+        await renderAllTodos()
     })
 }
 
-const editListener = function (el, id) {
-    el.addEventListener('click', evt => {
+const editListener = async function (el, id) {
+    el.addEventListener('click', async evt => {
         const parent = evt.target.parentElement
         const todoTextSpan = parent.querySelector('.todo-text')
         const icon = parent.querySelector('.edit-todo-icon')
         const textContent = todoTextSpan.textContent
-        todoTextSpan.replaceWith(renderEditInp(id, textContent))
+        todoTextSpan.replaceWith(await renderEditInp(id, textContent))
         parent.querySelector('.todo-edit-input').focus()
         icon.textContent = ICONS.confirm
-        icon.addEventListener('click', () => {
+        icon.addEventListener('click', async () => {
             const editedText = parent.querySelector('.todo-edit-input').value
-            editTodoTextById(id, editedText)
-            renderAllTodos()
+            await editTodoTextById(id, editedText)
+            await renderAllTodos()
         })
     }, {once: true})
 }
 
-const renderEditInp = function (id, text) {
+const renderEditInp = async function (id, text) {
     const inputEdit = document.createElement('input')
     inputEdit.className = 'todo-edit-input'
     inputEdit.value = text
-    inputEdit.addEventListener('keydown', (evt) => {
+    inputEdit.addEventListener('keydown', async (evt) => {
         if (evt.code === 'Enter') {
-            editTodoTextById(id, inputEdit.value)
-            renderAllTodos()
-        } else if (evt.code === 'Escape') renderAllTodos()
+            await editTodoTextById(id, inputEdit.value)
+            await renderAllTodos()
+        } else if (evt.code === 'Escape') await renderAllTodos()
     })
     return inputEdit
 }
 
-const renderAllTodos = function () {
+const renderAllTodos = async function () {
     todoBlock.innerHTML = ''
-    const todos = readTodos()
+    const todos = await readTodos()
     // empty todos
     if (todos.length === 0) {
         todoBlock.classList.remove('visible')
@@ -104,7 +104,7 @@ const renderAllTodos = function () {
         return
     }
     // not empty
-    todos.forEach(t => todoBlock.append(renderTodo(t)))
+    todos.forEach(async t => todoBlock.append(await renderTodo(t)))
     todoBlock.classList.add('visible')
     delButtonsBlock.classList.add('visible')
     delSelectedBtn.disabled = todos.every(t => !t.isDone)
