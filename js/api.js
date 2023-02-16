@@ -1,5 +1,17 @@
 const API_URL = 'https://281677.simplecloud.ru/api/'
-const API_KEY = 'd79887cf-df04-4457-972e-247a0f81f9d4'
+
+const getApiKey = async () =>{
+    const LOCAL_STORAGE_KEY = 'todoApiKey'
+    let apiKey = localStorage.getItem(LOCAL_STORAGE_KEY)
+    if(apiKey) return apiKey
+    const regKeyRequest = await fetch(`${API_URL}user/register`)
+    const json = await regKeyRequest.json()
+    apiKey = json.data.apiKey
+    localStorage.setItem(LOCAL_STORAGE_KEY, apiKey)
+    return apiKey
+}
+
+const API_KEY = await getApiKey()
 
 /**
   {
