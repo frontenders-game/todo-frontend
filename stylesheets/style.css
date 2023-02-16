@@ -43,6 +43,7 @@ button {
     background: #ffffff;
     box-shadow: 0 8px 35px rgba(0, 0, 0, 0.16);
     border-radius: 16px;
+    overflow: hidden;
 }
 
 .input-field-label {
