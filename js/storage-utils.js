@@ -13,10 +13,8 @@ const TODO_LS_KEY = 'todo'
 */
 const saveTodos = function (todoArr) {
     localStorage.setItem(TODO_LS_KEY, JSON.stringify(todoArr));
-    return todoArr
+    return JSON.stringify(todoArr)
 }
-
-const clearTodos = () => saveTodos([])
 
 const readTodos = () => JSON.parse(localStorage.getItem(TODO_LS_KEY) ?? saveTodos([]))
 
@@ -77,7 +75,6 @@ const getTodoIndexById = function (id) {
 export {
     readTodos,
     saveTodos,
-    clearTodos,
     addTodo,
     setDoneById,
     setNotDoneById,
