@@ -18,7 +18,7 @@ const delButtonsBlock = document.querySelector('.del-buttons-block')
 const delSelectedBtn = document.querySelector('.del-selected-btn')
 
 /**
-{
+ {
     "id": "63ea1255c82a8fb6426fc960",
     "text": "go to shop",
     "isDone": "true",
@@ -50,7 +50,7 @@ const renderTodo = async function (todoObj) {
     checkbox.className = 'todo-checkbox'
     checkbox.checked = isDone
     const checkboxFn = isDone ? setNotDoneById : setDoneById
-    checkbox.addEventListener('change', async() => {
+    checkbox.addEventListener('change', async () => {
         await checkboxFn(id)
         await renderAllTodos()
     })
@@ -103,8 +103,15 @@ const renderEditInp = async function (id, text) {
     return inputEdit
 }
 
+const preRenderAllTodos = async function (todosArr) {
+    const todoNodes = []
+    for (const t of todosArr) {
+        todoNodes.push(await renderTodo(t));
+    }
+    return todoNodes
+}
+
 const renderAllTodos = async function () {
-    todoBlock.innerHTML = ''
     const todos = await readTodos()
     // new items first
     todos.reverse()
@@ -114,11 +121,9 @@ const renderAllTodos = async function () {
         delButtonsBlock.classList.remove('visible')
         return
     }
-    // not empty
-    for (const t of todos) {
-        todoBlock.append(await renderTodo(t));
-    }
     todoBlock.classList.add('visible')
+    todoBlock.innerHTML = ''
+    todoBlock.append(...(await preRenderAllTodos(todos)))
     delButtonsBlock.classList.add('visible')
     delSelectedBtn.disabled = todos.every(t => !t.isDone)
     delSelectedBtn.title = delSelectedBtn.disabled ?

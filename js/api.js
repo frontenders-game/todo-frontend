@@ -34,6 +34,7 @@ const makeOptions = function (method, text, isDone) {
         headers: {
             'apiKey': API_KEY,
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS'
         }
     }
     if (method !== 'GET') {
@@ -88,8 +89,10 @@ const delTodoById = async function (id) {
 
 const delSelected = async function () {
     const todos = await readTodos()
-    todos.filter(t => t.isDone)
-        .forEach(todo => delTodoById(todo.id))
+    const filtered = todos.filter(t => t.isDone)
+    const toResolve = []
+    for (const t of filtered) toResolve.push(await delTodoById(t.id))
+    await Promise.all(toResolve)
 }
 
 export {

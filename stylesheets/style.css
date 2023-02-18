@@ -46,6 +46,10 @@ button {
     overflow: hidden;
 }
 
+.input-field-label {
+    flex-grow: 1;
+}
+
 .add-form {
     padding: 24px;
     font-weight: 600;
