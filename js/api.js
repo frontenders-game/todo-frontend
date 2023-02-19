@@ -34,7 +34,7 @@ const makeOptions = function (method, text, isDone) {
         headers: {
             'apiKey': API_KEY,
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS'
+            'Access-Control-Allow-Methods': 'GET, POST, PATCH, DELETE, OPTIONS'
         }
     }
     if (method !== 'GET') {
